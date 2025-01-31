@@ -1,0 +1,15 @@
+/* frontend/styles.css */
+
+/* Estilos personalizados (opcional) */
+body {
+    background-color: #f8f9fa;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+}

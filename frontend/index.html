@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Done</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">All done!</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav-links">
+            <!-- Links dinámicos -->
+          </ul>
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="auth-links">
+            <!-- Links de autenticación -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <div class="container mt-4">
+      <!-- Secciones de la SPA -->
+      <div id="home-section" class="d-none">
+        <h2>📝 Bienvenido a All Done!</h2>
+        <p>Te ayudamos a gestionar tus tareas de manera eficiente.</p>
+      </div>
+
+      <div id="register-section" class="d-none">
+        <h2>Registrar Usuario</h2>
+        <form id="register-form">
+          <div class="mb-3">
+            <label for="reg-username" class="form-label"
+              >Nombre de Usuario</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="reg-username"
+              name="nombre_usuario"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="reg-password" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="reg-password"
+              name="contrasenia"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+      </div>
+
+      <div id="login-section" class="d-none">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+          <div class="mb-3">
+            <label for="login-username" class="form-label"
+              >Nombre de Usuario</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="login-username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="login-password" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="login-password"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-success">Iniciar Sesión</button>
+        </form>
+      </div>
+
+      <div id="tasks-section" class="d-none">
+        <h2>Mis Tareas</h2>
+        <button class="btn btn-primary mb-3" id="show-create-task">
+          Crear Tarea
+        </button>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Texto</th>
+              <th>Categoría</th>
+              <th>Estado</th>
+              <th>Fecha de Inicio</th>
+              <th>Fecha Tentativa de Fin</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-table">
+            <!-- Tareas dinámicas -->
+          </tbody>
+        </table>
+
+        <!-- Modal Crear Tarea -->
+        <div
+          class="modal fade"
+          id="createTaskModal"
+          tabindex="-1"
+          aria-labelledby="createTaskModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="createTaskModalLabel">
+                  Crear Tarea
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Cerrar"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <!-- Formulario de Crear Tarea (actualizado) -->
+                <form id="create-task-form">
+                  <div class="mb-3">
+                    <label for="task-text" class="form-label"
+                      >Texto de la Tarea</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="task-text"
+                      name="texto_tarea"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="task-category" class="form-label"
+                      >Categoría</label
+                    >
+                    <select
+                      class="form-select"
+                      id="task-category"
+                      name="id_categoria"
+                    >
+                      <option value="">--Selecciona una categoría--</option>
+                      <!-- Opciones dinámicas -->
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="task-state" class="form-label">Estado</label>
+                    <select
+                      class="form-select"
+                      id="task-state"
+                      name="estado"
+                      required
+                    >
+                      <option value="Sin Empezar">Sin Empezar</option>
+                      <option value="En Proceso">En Proceso</option>
+                      <option value="Finalizada">Finalizada</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="task-date-option" class="form-label"
+                      >Fecha de Finalización</label
+                    >
+                    <select class="form-control" id="task-date-option">
+                      <option value="no-date">Sin Fecha</option>
+                      <option value="tomorrow">Mañana</option>
+                      <option value="later-week">Luego esta semana</option>
+                      <option value="weekend">Este fin de semana</option>
+                      <option value="custom">Otra Fecha</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 d-none" id="custom-date-container">
+                    <label for="task-custom-date" class="form-label"
+                      >Selecciona Fecha y Hora</label
+                    >
+                    <input
+                      type="datetime-local"
+                      class="form-control"
+                      id="task-custom-date"
+                    />
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Crear Tarea
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Editar Tarea -->
+        <div
+          class="modal fade"
+          id="editTaskModal"
+          tabindex="-1"
+          aria-labelledby="editTaskModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editTaskModalLabel">
+                  Editar Tarea
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Cerrar"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="edit-task-form">
+                  <input type="hidden" id="edit-task-id" name="id" />
+                  <div class="mb-3">
+                    <label for="edit-task-text" class="form-label"
+                      >Texto de la Tarea</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-task-text"
+                      name="texto_tarea"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="edit-task-category" class="form-label"
+                      >Categoría</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit-task-category"
+                      name="id_categoria"
+                    >
+                      <option value="">--Selecciona una categoría--</option>
+                      <!-- Opciones dinámicas -->
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="edit-task-state" class="form-label"
+                      >Estado</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit-task-state"
+                      name="estado"
+                    >
+                      <option value="Sin Empezar">Sin Empezar</option>
+                      <option value="En Proceso">En Proceso</option>
+                      <option value="Finalizada">Finalizada</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Actualizar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="categories-section" class="d-none">
+        <h2>Categorías</h2>
+        <button class="btn btn-primary mb-3" id="show-create-category">
+          Crear Categoría
+        </button>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="categories-table">
+            <!-- Categorías dinámicas -->
+          </tbody>
+        </table>
+
+        <!-- Modal Crear Categoría -->
+        <div
+          class="modal fade"
+          id="createCategoryModal"
+          tabindex="-1"
+          aria-labelledby="createCategoryModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="createCategoryModalLabel">
+                  Crear Categoría
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Cerrar"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="create-category-form">
+                  <div class="mb-3">
+                    <label for="category-name" class="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="category-name"
+                      name="nombre"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="category-description" class="form-label"
+                      >Descripción</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="category-description"
+                      name="descripcion"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-success">Crear</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Editar Categoría -->
+        <div
+          class="modal fade"
+          id="editCategoryModal"
+          tabindex="-1"
+          aria-labelledby="editCategoryModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModalLabel">
+                  Editar Categoría
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Cerrar"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="edit-category-form">
+                  <input type="hidden" id="edit-category-id" name="id" />
+                  <div class="mb-3">
+                    <label for="edit-category-name" class="form-label"
+                      >Nombre</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-category-name"
+                      name="nombre"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="edit-category-description" class="form-label"
+                      >Descripción</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit-category-description"
+                      name="descripcion"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Actualizar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="profile-section" class="d-none">
+        <h2>Perfil de Usuario</h2>
+        <div class="card" style="width: 18rem">
+          <img
+            src=""
+            class="card-img-top"
+            alt="Imagen de Perfil"
+            id="profile-image"
+          />
+          <div class="card-body">
+            <h5 class="card-title" id="profile-username"></h5>
+            <form id="upload-profile-form">
+              <div class="mb-3">
+                <label for="profile-image-upload" class="form-label"
+                  >Subir Nueva Imagen de Perfil</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="profile-image-upload"
+                  name="imagen_perfil"
+                  accept="image/*"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Subir</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script Principal -->
+    <script src="scripts.js"></script>
+  </body>
+</html>
