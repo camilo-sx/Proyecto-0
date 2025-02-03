@@ -1,5 +1,3 @@
-# Dockerfile
-
 # Usar una imagen base de Python
 FROM python:3.9-slim
 
@@ -20,5 +18,5 @@ ENV PYTHONPATH=/app/backend
 # Exponer el puerto en el que correrá FastAPI
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Comando para ejecutar la aplicación en producción
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

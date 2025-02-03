@@ -5,13 +5,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Configuración para PostgreSQL
 SQLALCHEMY_DATABASE_URL = "postgresql://user:password@db:5432/todo_db"
 #SQLALCHEMY_DATABASE_URL = "postgresql://user:password@localhost:5432/todo_db"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
-# Hacer reintentos de conexión para evitar errores al iniciar
 for _ in range(5):
     try:
         engine = create_engine(SQLALCHEMY_DATABASE_URL)

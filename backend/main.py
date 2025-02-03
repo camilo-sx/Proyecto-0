@@ -15,13 +15,10 @@ app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
 
-# Montar la carpeta frontend como estática
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
-# **Montar la carpeta static para imágenes**
 app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 
-# Redirigir la ruta raíz a index.html
 @app.get("/")
 def read_root():
     return RedirectResponse(url="/frontend/index.html")
@@ -61,20 +58,17 @@ async def upload_profile_image(user_id: int, file: UploadFile = File(...), db: S
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # **Asegurar que la carpeta 'images' exista**
     images_dir = os.path.join("backend", "static", "images")
     os.makedirs(images_dir, exist_ok=True)
     
-    # **Guardar la imagen en la carpeta 'images'**
     file_location = os.path.join(images_dir, file.filename)
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
     
-    # **Asignar la ruta pública de la imagen**
     user.imagen_perfil = f"/static/images/{file.filename}"
     db.commit()
     return {"filename": file.filename}
-    
+
 
 @app.post("/token")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -91,12 +85,12 @@ def read_users_me(current_user: schemas.User = Depends(auth.get_current_user)):
 
 @app.post("/tasks/", response_model=schemas.Task)
 def create_task(
-    task: schemas.TaskCreate,  # ✅ Debe venir en el `body`
+    task: schemas.TaskCreate,
     db: Session = Depends(get_db),
     current_user: schemas.User = Depends(auth.get_current_user),
 ):
-    print(f"✅ REQUEST RECIBIDO: {task.model_dump()}")  # 🚨 LOG para depuración
-    print(f"✅ Usuario autenticado: {current_user.nombre_usuario} (ID: {current_user.id})")
+    print(f"REQUEST RECIBIDO: {task.model_dump()}")
+    print(f"Usuario autenticado: {current_user.nombre_usuario} (ID: {current_user.id})")
     return crud.create_user_task(db=db, task=task, user_id=current_user.id)
 
 
@@ -128,12 +122,8 @@ def delete_task(task_id: int, db: Session = Depends(get_db), current_user: schem
 def create_category(
     cat: schemas.CategoriaCreate,
     db: Session = Depends(get_db),
-    current_user: schemas.User = Depends(auth.get_current_user),  # si requieres autenticación
+    current_user: schemas.User = Depends(auth.get_current_user),
 ):
-    # Si quieres chequear nombre duplicado:
-    # ya_existe = db.query(models.Categoria).filter_by(nombre=cat.nombre).first()
-    # if ya_existe:
-    #     raise HTTPException(status_code=400, detail="La categoría ya existe")
 
     return crud.create_category(db, cat)
 

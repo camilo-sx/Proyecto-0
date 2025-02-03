@@ -8,7 +8,7 @@ class UserBase(BaseModel):
     nombre_usuario: str
 
 class UserCreate(UserBase):
-    contrasenia: str  # Mantiene el nombre según el ERD
+    contrasenia: str
 
 class User(UserBase):
     id: int
