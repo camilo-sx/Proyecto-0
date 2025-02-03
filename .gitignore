@@ -8,7 +8,7 @@ backend/.pytest_cache
 
 # Ignore environment variable files
 .env
-.pem
+mainKey.pem
 
 # Ignore OS generated files
 .DS_Store
