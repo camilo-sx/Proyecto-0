@@ -51,3 +51,11 @@ Reconstruir la imagen:
 ```
 docker-compose up -d --build
 ```
+
+# Despliegue en AWS
+
+Prueba esta aplicación en vivo: http://44.208.104.201:8000/
+
+## Integrantes
+
+Camilo A. Cáceres Fontecha - 201812935

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     //const API_BASE_URL = "http://localhost:8000"; desarrollo en local
-    const API_BASE_URL = "http://ec2-54-85-134-57.compute-1.amazonaws.com:8000";
+    const API_BASE_URL = "http://44.208.104.201:8000/";
 
 
     // Elementos de la navegación
