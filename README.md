@@ -1,4 +1,4 @@
-# All Done! - Gestión de Tareas
+# 😎 All Done! - Gestión de Tareas 📝
 
 Esta aplicación es una SPA (Single Page Application) para gestionar tareas y categorías, utilizando FastAPI en el backend y HTML/CSS/JavaScript en el frontend. El proyecto se despliega en contenedores Docker y utiliza PostgreSQL como base de datos.
 
@@ -19,19 +19,19 @@ Sigue estos pasos para correr la aplicación en tu entorno local:
 
 2. **Ajusta la configuración del Frontend (scripts.js):**
 
-En el archivo frontend/scripts.js descomenta la linea donde se define la URL de la API:
+    En el archivo frontend/scripts.js descomenta la linea donde se define la URL de la API:
 
-``const API_BASE_URL = "http://localhost:8000";``
+    ``const API_BASE_URL = "http://localhost:8000";``
 
-Asegúrate de que esta variable esté configurada con http://localhost:8000 para que las peticiones del frontend se realicen al backend local.
+    Asegúrate de que esta variable esté configurada con http://localhost:8000 para que las peticiones del frontend se realicen al backend local.
 
 3. **Construye y levanta los contenedores:**
 
-Ejecuta en la raíz de proyecto ``docker-compose up -d --build``
+    Ejecuta en la raíz de proyecto ``docker-compose up -d --build``
 
 4. **Accede a la aplicación:**
 
-Abre tu navegador y navega a http://localhost:8000. Se redirigirá automáticamente a la página principal de la app.
+    Abre tu navegador y navega a http://localhost:8000. Se redirigirá automáticamente a la página principal de la app.
 
 ## Comandos Útiles
 Ver logs de los contenedores:
@@ -51,6 +51,11 @@ Reconstruir la imagen:
 ```
 docker-compose up -d --build
 ```
+
+## Video de Demostración
+
+Demo en el siguiente enlace:  
+[https://youtu.be/hetzxARWH1c](https://youtu.be/hetzxARWH1c)
 
 # Despliegue en AWS
 
