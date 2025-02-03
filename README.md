@@ -16,10 +16,38 @@ Sigue estos pasos para correr la aplicación en tu entorno local:
 
 1. **Clona el repositorio:**
 
-2. **Construye y levanta los contenedores:**
+
+2. **Ajusta la configuración del Frontend (scripts.js):**
+
+En el archivo frontend/scripts.js descomenta la linea donde se define la URL de la API:
+
+``const API_BASE_URL = "http://localhost:8000";``
+
+Asegúrate de que esta variable esté configurada con http://localhost:8000 para que las peticiones del frontend se realicen al backend local.
+
+3. **Construye y levanta los contenedores:**
 
 Ejecuta en la raíz de proyecto ``docker-compose up -d --build``
 
-3. **Accede a la aplicación:**
+4. **Accede a la aplicación:**
 
 Abre tu navegador y navega a http://localhost:8000. Se redirigirá automáticamente a la página principal de la app.
+
+## Comandos Útiles
+Ver logs de los contenedores:
+
+```
+docker-compose logs -f
+```
+
+Detener los contenedores:
+
+```
+docker-compose down
+```
+
+Reconstruir la imagen:
+
+```
+docker-compose up -d --build
+```

@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_BASE_URL = "http://localhost:8000"; // Mantener el puerto 8000
+    //const API_BASE_URL = "http://localhost:8000"; desarrollo en local
+    const API_BASE_URL = "http://ec2-54-85-134-57.compute-1.amazonaws.com:8000";
+
 
     // Elementos de la navegación
     const navLinks = document.getElementById("nav-links");
